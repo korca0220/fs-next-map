@@ -61,7 +61,7 @@ export default function Markers({
 
         // 선택한 가게 저장
         window.kakao.maps.event.addListener(marker, "click", function () {
-          setCurrentStore(marker);
+          setCurrentStore(store);
         });
       });
     }
