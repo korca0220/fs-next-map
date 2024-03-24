@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface MarkerProps {
