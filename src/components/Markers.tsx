@@ -1,47 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { StoreType } from "@/interface";
 import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 
 interface MarkerProps {
   map: any;
-  storeDataList: any[];
+  stores: StoreType[];
   setCurrentStore: Dispatch<SetStateAction<any>>;
 }
 
 export default function Markers({
   map,
-  storeDataList,
+  stores: storeDataList,
   setCurrentStore,
 }: MarkerProps) {
   const loadKakaoMarkers = useCallback(() => {
     if (map) {
       storeDataList?.map((store) => {
-        var imageSrc = store?.bizcnd_code_nm
+        const imageSrc = store?.bizcnd_code_nm
             ? `/images/markers/${store?.bizcnd_code_nm}.png`
             : "/images/markers/default.png",
           imageSize = new window.kakao.maps.Size(32, 32),
           imageOption = { offset: new window.kakao.maps.Point(27, 69) };
 
-        var markerImage = new window.kakao.maps.MarkerImage(
+        const markerImage = new window.kakao.maps.MarkerImage(
           imageSrc,
           imageSize,
           imageOption
         );
 
-        var markerPosition = new window.kakao.maps.LatLng(
+        const markerPosition = new window.kakao.maps.LatLng(
           store?.y_dnts,
           store?.x_cnts
         );
 
-        var marker = new window.kakao.maps.Marker({
+        const marker = new window.kakao.maps.Marker({
           position: markerPosition,
           image: markerImage,
         });
 
         marker.setMap(map);
 
-        var content = `<div class="infowindow">${store?.upso_nm}</div>`;
+        const content = `<div class="infowindow">${store?.upso_nm}</div>`;
 
-        var customOverlay = new window.kakao.maps.CustomOverlay({
+        const customOverlay = new window.kakao.maps.CustomOverlay({
           position: markerPosition,
           content: content,
           xAnchor: 0.6,
