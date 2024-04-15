@@ -9,3 +9,10 @@ export interface StoreType {
   storeType?: string | null;
   feedCertifyName?: string | null;
 }
+
+export interface StoreApiResponse {
+  page: number;
+  data: StoreType[];
+  totalCount: number;
+  totalPage: number;
+}
