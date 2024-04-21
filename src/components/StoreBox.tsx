@@ -1,5 +1,6 @@
 import { StoreType } from "@/interface";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Dispatch, SetStateAction } from "react";
 import {
   AiOutlineCheck,
@@ -14,6 +15,8 @@ interface StoreBoxProps {
   setStore: Dispatch<SetStateAction<any>>;
 }
 export default function StoreBox({ store, setStore }: StoreBoxProps) {
+  const router = useRouter();
+
   return (
     <div className="fixed transition ease-in-out delay-150 inset-x-0 mx-auto bottom-20 rounded-lg shadow-lg max-w-sm md:max-w-xl z-10 w-full bg-white">
       {store && (
@@ -59,7 +62,7 @@ export default function StoreBox({ store, setStore }: StoreBoxProps) {
           </div>
           <button
             type="button"
-            onClick={() => window.alert("상세보기 작업중")}
+            onClick={() => router.push(`/stores/${store?.id}`)}
             className="w-full py-3 text-white font-semibold  bg-blue-700 hover:bg-blue-500 rounded-b-lg"
           >
             상세보기

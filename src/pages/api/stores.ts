@@ -13,7 +13,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<StoreApiResponse | StoreType[]>
 ) {
-  const { page = "" }: { page?: string } = req.query;
+  const { page = "", id }: { page?: string; id?: number } = req.query;
 
   const prisma = new PrismaClient();
 
