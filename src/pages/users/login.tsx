@@ -10,6 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(data, status);
     if (status === "authenticated") {
       router.replace("/");
     }
@@ -32,7 +33,7 @@ export default function LoginPage() {
         <div className="flex flex-col gap-2">
           <button
             type="button"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google", { callbackUrl: "/" })}
             className="text-white flex gap-2 bg-[#4285F4] hover:bg-[#4285F4]/90 font-medium rounded-lg w-full- px-5 py-4 text-center items-center justify-center"
           >
             <FcGoogle className="w-6 h-6" />
@@ -40,7 +41,7 @@ export default function LoginPage() {
           </button>
           <button
             type="button"
-            onClick={() => signIn("naver")}
+            onClick={() => signIn("naver", { callbackUrl: "/" })}
             className="text-white flex gap-3 bg-[#2db400] hover:bg-[#2db400]/90 font-medium rounded-lg w-full- px-5 py-4 text-center items-center justify-center"
           >
             <SiNaver className="w-4 h-4" />
@@ -48,6 +49,7 @@ export default function LoginPage() {
           </button>
           <button
             type="button"
+            onClick={() => signIn("kakao", { callbackUrl: "/" })}
             className="text-black flex gap-2 bg-[#f2f01b] hover:bg-[#f2f01b]/90 font-medium rounded-lg w-full- px-5 py-4 text-center items-center justify-center"
           >
             <RiKakaoTalkFill className="w-6 h-6" />
