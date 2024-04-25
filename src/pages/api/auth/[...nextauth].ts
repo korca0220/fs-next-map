@@ -8,6 +8,11 @@ import NaverProvider from "next-auth/providers/naver";
 const prisma = new PrismaClient();
 
 export default NextAuth({
+  session: {
+    strategy: "jwt" as const,
+    maxAge: 24 * 60 * 60, //  세션 유지 시간
+    updateAge: 2 * 60 * 60, // 세션 업데이트 주기
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
