@@ -1,6 +1,7 @@
+import prisma from "@/db";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+
 
 // async function seedData() {
 //   data?.["DATA"]?.map(async (store) => {
