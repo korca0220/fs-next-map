@@ -1,7 +1,6 @@
-import { StoreType } from "@/interface";
+import { currentStoreState } from "@/atom";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
 import {
   AiOutlineCheck,
   AiOutlineClose,
@@ -9,13 +8,12 @@ import {
   AiOutlinePhone,
 } from "react-icons/ai";
 import { HiOutlineMapPin } from "react-icons/hi2";
+import { useRecoilState } from "recoil";
 
-interface StoreBoxProps {
-  store: StoreType | null;
-  setStore: Dispatch<SetStateAction<any>>;
-}
-export default function StoreBox({ store, setStore }: StoreBoxProps) {
+export default function StoreBox() {
   const router = useRouter();
+
+  const [store, setStore] = useRecoilState(currentStoreState);
 
   return (
     <div className="fixed transition ease-in-out delay-150 inset-x-0 mx-auto bottom-20 rounded-lg shadow-lg max-w-sm md:max-w-xl z-10 w-full bg-white">

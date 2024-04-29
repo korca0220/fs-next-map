@@ -4,11 +4,9 @@ import Marker from "@/components/Marker";
 import { StoreType } from "@/interface";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useQuery } from "react-query";
 
 export default function StoreDetailPage() {
-  const [map, setMap] = useState(null);
   const router = useRouter();
   const { id } = router.query;
 
@@ -114,8 +112,8 @@ export default function StoreDetailPage() {
       </div>
       {isSuccess && (
         <div className="overflow-hidden w-full mb-20 max-w-5xl mx-auto max-h-[600px]">
-          <Map setMap={setMap} lat={store?.lat} lng={store?.lng} zoom={1} />
-          <Marker map={map} store={store} />
+          <Map lat={store?.lat} lng={store?.lng} zoom={1} />
+          <Marker store={store} />
         </div>
       )}
     </>
