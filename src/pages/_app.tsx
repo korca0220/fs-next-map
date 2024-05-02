@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 export default function App({ Component, pageProps }: AppProps) {
   const { session } = pageProps;
 
-  return (
+return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={session}>
