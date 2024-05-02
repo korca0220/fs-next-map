@@ -14,8 +14,10 @@ import { useRecoilValue } from "recoil";
 export default function StoreListPage() {
   const router = useRouter();
   const listRef = useRef<HTMLDivElement | null>(null);
+
   const pageRef = useIntersectionObserver(listRef, {});
-  // 페이지의 마지막에 도달했는가
+
+  // 페이지의 마지막에 도달했는가 
   const isPageEnd = !!pageRef?.isIntersecting;
 
   const searchValue = useRecoilValue(searchState);
