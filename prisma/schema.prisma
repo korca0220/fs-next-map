@@ -26,16 +26,19 @@ model Store {
   category String? // bizcnd_code_nm 
   storeType String? // cob_code_nm
   feedCertifyName String? // crtfc_gbn_nm
+  likes Like[]
 }
 
 model User {
-  id            String          @id @default(cuid())
+  id            Int          @id @default(autoincrement())
   name          String?
   email         String?          @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  likes         Like[]
+
   // Optional for WebAuthn support
   Authenticator Authenticator[]
  
@@ -43,8 +46,18 @@ model User {
   updatedAt DateTime @updatedAt
 }
  
+ model Like {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  userId Int
+  storeId Int
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+ }
+
 model Account {
-  userId            String
+  userId            Int
   type              String
   provider          String
   providerAccountId String
@@ -67,7 +80,7 @@ model Account {
  
 model Session {
   sessionToken String   @unique
-  userId       String
+  userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
  
@@ -86,7 +99,7 @@ model VerificationToken {
 model Authenticator {
   id                   String  @id @default(cuid())
   credentialID         String  @unique
-  userId               String
+  userId               Int
   providerAccountId    String
   credentialPublicKey  String
   counter              Int
