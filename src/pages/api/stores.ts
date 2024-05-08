@@ -4,6 +4,9 @@ import { StoreApiResponse, StoreType } from "@/interface";
 import axios from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
+
 export const config = {
   api: {
     responseLimit: "8mb",
@@ -23,6 +26,8 @@ export default async function handler(
   res: NextApiResponse<StoreApiResponse | StoreType[] | StoreType | null>
 ) {
   const { page = "", limit = "", q, district, id }: ResponseType = req.query;
+  const session = await getServerSession(req, res, authOptions);
+
   if (req.method === "POST") {
     const formData = req.body;
     const headers = { Authorization: `KakaoAK ${process.env.KAKAO_CLIENT_ID}` };
@@ -108,6 +113,11 @@ export default async function handler(
         orderBy: { id: "asc" },
         where: {
           id: id ? parseInt(id) : undefined,
+        },
+        include: {
+          likes: {
+            where: session ? { userId: parseInt(session?.user.id) } : {},
+          },
         },
       });
 

@@ -1,11 +1,11 @@
 import prisma from "@/db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
 import NaverProvider from "next-auth/providers/naver";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt" as const,
     maxAge: 24 * 60 * 60, //  세션 유지 시간
@@ -29,4 +29,21 @@ export default NextAuth({
   pages: {
     signIn: "/users/login",
   },
-});
+  callbacks: {
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+    jwt: async ({ user, token }) => {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+  },
+};
+
+export default NextAuth(authOptions);
