@@ -19,7 +19,7 @@ export default async function handler(
     let like = await prisma.like.findFirst({
       where: {
         storeId,
-        userId: parseInt(session?.user.id),
+        userId: session?.user.id,
       },
     });
 
@@ -35,7 +35,7 @@ export default async function handler(
       like = await prisma.like.create({
         data: {
           storeId,
-          userId: parseInt(session?.user.id),
+          userId: session?.user.id,
         },
       });
 

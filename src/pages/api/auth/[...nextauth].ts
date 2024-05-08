@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
       ...session,
       user: {
         ...session.user,
-        id: token.sub,
+        id: parseInt(token?.sub ?? "0"),
       },
     }),
     jwt: async ({ user, token }) => {
