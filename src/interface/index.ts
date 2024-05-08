@@ -15,13 +15,21 @@ export interface LikeInterface {
   id: number;
   storeId: number;
   userId: number;
+  store?: StoreType;
+}
+
+export interface LikesApiResponse {
+  data: LikeInterface[];
+  page?: number;
+  totalCount?: number;
+  totalPage?: number;
 }
 
 export interface StoreApiResponse {
-  page: number;
+  page?: number;
   data: StoreType[];
-  totalCount: number;
-  totalPage: number;
+  totalCount?: number;
+  totalPage?: number;
 }
 
 export interface LocationType {
